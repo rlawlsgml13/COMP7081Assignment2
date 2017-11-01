@@ -237,6 +237,15 @@ public class Player : MonoBehaviour
 
 
         }
+
+
+        if (Input.GetKey(KeyCode.LeftControl)) {
+
+            Debug.Log("left control is pressed");
+
+
+
+        }
     }
 
 
