@@ -243,12 +243,16 @@ public class Player : MonoBehaviour
 
             Debug.Log("left control is pressed");
 
-
+            togglecollision();
 
         }
     }
 
+    public void togglecollision() {
 
+
+
+    }
 
 
 }
