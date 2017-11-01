@@ -27,8 +27,12 @@ public class Player : MonoBehaviour
 
     private static readonly float ROTATION_Y_KEY = 360.0f;  //회전 속도(키보드)
     private static readonly float ROTATION_Y_MOUSE = 720.0f;    //회전 속도(마우스)
+    private static readonly float ROTATION_X_MOUSE = 720.0f;    //회전 속도(마우스)
+
 
     private float m_rotationY = 0.0f;       //플레이어의 회전 각도
+    private float m_rotationX = 0.0f;       //플레이어의 회전 각도
+
 
     private bool m_mouseLockFlag = true;        //마우스를 고정하는 기능
 
@@ -63,7 +67,17 @@ public class Player : MonoBehaviour
         CheckMove();
     }
 
+    private void CameraRotate()
+    {
+        float addRotationY = 0.0f;
 
+        if (m_mouseLockFlag !=  true)
+        {
+            if(Input.GetMouseButton(0)) 
+                addRotationY = ROTATION_Y_KEY;
+        }
+
+    }
     /*
 	 *	마우스 잠금 처리 검사(confirm whether mouse is locked or not)
 	 */
@@ -102,6 +116,7 @@ public class Player : MonoBehaviour
             //이 프레임에서 움직이는 회전량(amount of rotaion each frame)
             float addRotationY = 0.0f;
 
+
             //키 조작으로 회전(rotation by key control
             if (Input.GetKey(KeyCode.A))
             {
@@ -121,7 +136,6 @@ public class Player : MonoBehaviour
             {
                 addRotationY = ROTATION_Y_KEY;
             }
-         
 
 
             //마우스 이동량에 의한 회전
@@ -129,17 +143,21 @@ public class Player : MonoBehaviour
             {
                 //이동량을 얻어서 각도 처리로 넘겨준다
                 addRotationY += (Input.GetAxis("Mouse X") * ROTATION_Y_MOUSE);
-            }
+
+            } 
 
             //현재 각도에 더한다
             m_rotationY += (addRotationY * Time.deltaTime);
+
             /* 
              * 이동량, 회전량에는 Time.deltaTime을 곱해서 실행 환경(기기 성능에 의해 발생되는 프레임 수의 차이)에 따라 차이가 없게 한다
              */
 
 
             //오일러 각으로 입력한다
-            transform.rotation = Quaternion.Euler(0, m_rotationY, 0);       //Y축 회전으로 캐릭터 방향을 옆으로 바꾼다
+          transform.rotation = Quaternion.Euler(0, m_rotationY, 0);       //Y축 회전으로 캐릭터 방향을 옆으로 바꾼다.
+        
+
         }
 
         //이동
