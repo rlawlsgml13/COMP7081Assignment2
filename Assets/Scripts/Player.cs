@@ -115,7 +115,7 @@ public class Player : MonoBehaviour
         {
             //이 프레임에서 움직이는 회전량(amount of rotaion each frame)
             float addRotationY = 0.0f;
-
+            Vector3 vecInput1 = new Vector3(0f, Input.GetAxisRaw("Horizontal"), 0);
 
             //키 조작으로 회전(rotation by key control
             if (Input.GetKey(KeyCode.A))
@@ -137,6 +137,10 @@ public class Player : MonoBehaviour
                 addRotationY = ROTATION_Y_KEY;
             }
 
+            if (vecInput1.y > 0 )
+                addRotationY = ROTATION_Y_KEY;
+            else if (vecInput1.y < 0)
+                addRotationY = -ROTATION_Y_KEY;
 
             //마우스 이동량에 의한 회전
             if (m_mouseLockFlag)
@@ -164,6 +168,7 @@ public class Player : MonoBehaviour
         Vector3 addPosition = Vector3.zero;     //이동량(z 값은 메카님에도 넘겨준다)
         {
             
+
             //키 조작에서 이동할 양을 얻는다
             Vector3 vecInput = new Vector3(0f, 0, Input.GetAxisRaw("Vertical"));        // 앞뒤 방향 입력 값을 받아 Z에 넣는다([W], [S] 게임 패드 입력 등)
 
@@ -179,6 +184,7 @@ public class Player : MonoBehaviour
                 //후퇴
                 addPosition.z = MOVE_Z_BACK;
             }
+            
 
             //이동량을 Transform에 넘겨주어 이동시킨다
             transform.position += ((transform.rotation * addPosition) * Time.deltaTime);
