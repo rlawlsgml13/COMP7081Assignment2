@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
 {
 
 
-
+    BoxCollider boxcollisioncomponent;
     public GameObject playerObject = null;      //움직일 대상 모델
     public GameObject bulletObject = null;      //총알 프리팹
 
@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
     {
         startPOS = transform.position;
         startROT = transform.position;
+        boxcollisioncomponent = GetComponent<BoxCollider>();
     }
 
 
@@ -61,6 +62,16 @@ public class Player : MonoBehaviour
 
         //이동 처리(movement)
         CheckMove();
+
+
+      //  if (Input.GetKey(KeyCode.C)) {
+
+        //    boxcollisioncomponent.enabled = false;
+     //   }
+
+       
+
+
     }
 
 
@@ -121,7 +132,12 @@ public class Player : MonoBehaviour
             {
                 addRotationY = ROTATION_Y_KEY;
             }
-         
+
+            if (Input.GetKey(KeyCode.UpArrow)) {
+
+                
+
+            }
 
 
             //마우스 이동량에 의한 회전
@@ -145,7 +161,7 @@ public class Player : MonoBehaviour
         //이동
         Vector3 addPosition = Vector3.zero;     //이동량(z 값은 메카님에도 넘겨준다)
         {
-            
+
             //키 조작에서 이동할 양을 얻는다
             Vector3 vecInput = new Vector3(0f, 0, Input.GetAxisRaw("Vertical"));        // 앞뒤 방향 입력 값을 받아 Z에 넣는다([W], [S] 게임 패드 입력 등)
 
@@ -239,20 +255,8 @@ public class Player : MonoBehaviour
         }
 
 
-        if (Input.GetKey(KeyCode.LeftControl)) {
 
-            Debug.Log("left control is pressed");
-
-            togglecollision();
-
-        }
-    }
-
-    public void togglecollision() {
-
-
+        //adding comments here to test out github close and pull requests
 
     }
-    //adding comments here to test out github close and pull requests
-
 }
