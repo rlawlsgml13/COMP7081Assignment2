@@ -43,13 +43,27 @@ public class Player : MonoBehaviour
         startROT = transform.position;
         boxcollisioncomponent = GetComponent<BoxCollider>();
     }
-
+    public bool toggle = false;
 
     /*
 	 *	매 프레임마다 호출되는 함수(invoked functions each frame)
 	 */
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            toggle = !toggle;
+            Debug.Log("key is pressed");
+            GameObject[] walls = GameObject.FindGameObjectsWithTag("wall");
+
+            foreach (GameObject go in walls)
+            {
+                go.GetComponent<BoxCollider>().enabled = toggle;
+
+            }
+
+
+        }
 
         //스테이지가 종료되면 조작을 무시한다(ignore control when finishing stage)
         if (Game.IsStageCleared())
@@ -73,6 +87,8 @@ public class Player : MonoBehaviour
 
 
     }
+
+
 
 
     /*
@@ -133,11 +149,15 @@ public class Player : MonoBehaviour
                 addRotationY = ROTATION_Y_KEY;
             }
 
-            if (Input.GetKey(KeyCode.UpArrow)) {
-
-                
-
+            Vector3 vecInput1 = new Vector3(0f, Input.GetAxisRaw("Horizontal"), 0);
+            if (vecInput1.y > 0)
+            {
+                addRotationY = ROTATION_Y_KEY;
+            } else if (vecInput1.y < 0)
+            {
+                addRotationY = -ROTATION_Y_KEY;
             }
+
 
 
             //마우스 이동량에 의한 회전
